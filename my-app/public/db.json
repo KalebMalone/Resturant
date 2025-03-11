@@ -1,0 +1,50 @@
+{
+    "starters": [
+        {
+            "name": "Garlic Bread",
+            "description": "Delicious toasted garlic bread with a hint of parmesan.",
+            "price": 5.99
+        },
+        {
+            "name": "Bruschetta",
+            "description": "Tomato and basil on toasted bread.",
+            "price": 6.99
+        }
+    ],
+    "mains": [
+        {
+            "name": "Grilled Chicken",
+            "description": "Succulent grilled chicken served with vegetables.",
+            "price": 12.99
+        },
+        {
+            "name": "Spaghetti Bolognese",
+            "description": "Pasta with a rich and flavorful meat sauce.",
+            "price": 13.99
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Chocolate Cake",
+            "description": "Rich and moist chocolate cake topped with cream.",
+            "price": 6.49
+        },
+        {
+            "name": "Tiramisu",
+            "description": "Traditional Italian dessert with layers of coffee-soaked ladyfingers.",
+            "price": 7.99
+        }
+    ],
+    "drinks": [
+        {
+            "name": "Lemonade",
+            "description": "Freshly squeezed lemonade.",
+            "price": 3.99
+        },
+        {
+            "name": "Iced Tea",
+            "description": "Refreshing iced tea served with lemon.",
+            "price": 3.49
+        }
+    ]
+}
