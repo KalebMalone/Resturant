@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 50vh;
   width: 100vw;
   text-align: center;
   padding: 20px;
@@ -40,6 +40,13 @@ const Button = styled.button`
   }
 `;
 
+const Image = styled.img`
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+`;
+
 function Home() {
     const navigate = useNavigate(); // Initialize the navigation hook
 
@@ -49,9 +56,10 @@ function Home() {
 
     return (
         <Container>
-            <Heading>Welcome to!</Heading>
-            <SubHeading>You are gay</SubHeading>
-            <Button onClick={goToMenu}>Explore Daddys Menu</Button>
+            <img alt="Restaurant" src="/image/restaurant.jpg" />
+            <Heading>Welcome to Wiley's Kitchen!</Heading>
+            <SubHeading>Your next great meal is just a click away.</SubHeading>
+            <Button onClick={goToMenu}>Explore Wiley's Menu</Button>
         </Container>
     );
 }

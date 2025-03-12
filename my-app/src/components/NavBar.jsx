@@ -1,25 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+// Styling for the Header (Navbar container)
 const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   padding: 15px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px #d32f2f;
   z-index: 1000;
 `;
 
+// Title of the Navbar, clickable to navigate to Home
 const Title = styled.h1`
   font-size: 26px;
   font-weight: bold;
-  color: #333;
+  color: #d32f2f;
   margin: 0;
   padding: 0;
+  cursor: pointer;
+  &:hover {
+    color: #b71c1c;
+  }
 `;
 
+// Navigation container for the links
 const Navigation = styled.nav`
   display: flex;
   gap: 20px;
@@ -27,6 +34,7 @@ const Navigation = styled.nav`
   margin-top: 10px;
 `;
 
+// Styling for individual navigation links
 const StyledNavLink = styled(Link)`
   text-decoration: none;
   color: #d32f2f;
@@ -37,6 +45,7 @@ const StyledNavLink = styled(Link)`
   }
 `;
 
+// Styling for the Order Now button
 const OrderButton = styled.button`
   background: #d32f2f;
   color: white;
@@ -55,9 +64,17 @@ const OrderButton = styled.button`
 `;
 
 function NavBar() {
+    const navigate = useNavigate();  // Hook to programmatically navigate
+
+    const handleOrderNow = () => {
+        navigate("/order");  // Navigates to the OrderPage
+    };
+
     return (
         <Header>
-            <Title>Gay</Title>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <Title>Wiley's Kitchen</Title>
+            </Link>
             <Navigation>
                 <StyledNavLink to="/">Home</StyledNavLink>
                 <StyledNavLink to="/menu">Menu</StyledNavLink>
@@ -65,9 +82,7 @@ function NavBar() {
             </Navigation>
 
             {/* Order Now Button */}
-            <OrderButton onClick={() => console.log("Ordering...")}>
-                Order Now
-            </OrderButton>
+            <OrderButton onClick={handleOrderNow}>Order Now</OrderButton>
         </Header>
     );
 }
