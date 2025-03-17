@@ -1,0 +1,97 @@
+{
+    "starters": [
+        {
+            "name": "Garlic Bread",
+            "description": "Delicious toasted garlic bread with a hint of parmesan.",
+            "price": 5.99,
+            "image": "/images/Garlic.jpg"
+        },
+        {
+            "name": "Bruschetta",
+            "description": "Tomato and basil on toasted bread.",
+            "price": 6.99,
+            "image": "/images/Bruschetta.jpg"
+        },
+        {
+            "name": "Stuffed Mushrooms",
+            "description": "Mushrooms filled with a creamy cheese mixture.",
+            "price": 7.49,
+            "image": "/images/Stuffed Mushrooms.jpg"
+        },
+        {
+            "name": "Caprese Salad",
+            "description": "Fresh tomatoes, mozzarella, basil, and a balsamic glaze.",
+            "price": 8.99,
+            "image": "/images/Caprese Salad.jpg"
+        }
+    ],
+    "mains": [
+        {
+            "name": "Grilled Chicken",
+            "description": "Succulent grilled chicken served with vegetables.",
+            "price": 12.99,
+            "image": "/images/Grilled Chicken.jpg"
+        },
+        {
+            "name": "Spaghetti Bolognese",
+            "description": "Pasta with a rich and flavorful meat sauce.",
+            "price": 13.99,
+            "image": "/images/Spaghetti Bolognese.jpg"
+        },
+        {
+            "name": "Vegetable Stir-Fry",
+            "description": "Mixed vegetables stir-fried with soy sauce and served with rice.",
+            "price": 10.99,
+            "image": "/images/Vegetable Stir-Fry.jpg"
+        },
+        {
+            "name": "Salmon Fillet",
+            "description": "Pan-seared salmon with a lemon butter sauce, served with seasonal vegetables.",
+            "price": 15.99
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Chocolate Cake",
+            "description": "Rich and moist chocolate cake topped with cream.",
+            "price": 6.49
+        },
+        {
+            "name": "Tiramisu",
+            "description": "Traditional Italian dessert with layers of coffee-soaked ladyfingers.",
+            "price": 7.99
+        },
+        {
+            "name": "Cheesecake",
+            "description": "Creamy cheesecake with a graham cracker crust and berry topping.",
+            "price": 7.49
+        },
+        {
+            "name": "Panna Cotta",
+            "description": "Italian dessert made with sweetened cream, served with a berry compote.",
+            "price": 6.99
+        }
+    ],
+    "drinks": [
+        {
+            "name": "Lemonade",
+            "description": "Freshly squeezed lemonade.",
+            "price": 3.99
+        },
+        {
+            "name": "Iced Tea",
+            "description": "Refreshing iced tea served with lemon.",
+            "price": 3.49
+        },
+        {
+            "name": "Cappuccino",
+            "description": "Espresso with steamed milk and a layer of froth.",
+            "price": 4.49
+        },
+        {
+            "name": "Smoothie",
+            "description": "Fresh fruit blended with yogurt and ice.",
+            "price": 5.49
+        }
+    ]
+}
