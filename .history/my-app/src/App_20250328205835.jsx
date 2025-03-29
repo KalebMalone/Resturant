@@ -1,7 +1,7 @@
-// src/App.js
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CartProvider } from './context/CartContext';  // Import CartProvider
+import { CartProvider } from './context/CartContext';  // Import the provider
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Menu from './components/Menu';

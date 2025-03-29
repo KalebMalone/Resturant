@@ -28,7 +28,7 @@ const SubHeading = styled.p`
 `;
 
 const Button = styled.button`
-  background-color:rgb(71, 63, 63);
+  background-color: #d32f2f;
   color: white;
   font-size: 18px;
   padding: 12px 20px;
@@ -36,7 +36,7 @@ const Button = styled.button`
   border-radius: 8px;
   cursor: pointer;
   &:hover {
-    background-color:rgb(71, 63, 63);
+    background-color: #b71c1c;
   }
 `;
 

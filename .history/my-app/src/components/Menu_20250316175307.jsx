@@ -92,7 +92,7 @@ const MenuItem = styled.div`
 
   h3 {
     font-size: 22px;
-    color:rgb(71, 63, 63);
+    color: #d32f2f;
     margin-bottom: 10px;
   }
 
@@ -104,7 +104,7 @@ const MenuItem = styled.div`
 
   strong {
     font-size: 18px;
-    color:rgb(71, 63, 63);
+    color: #d32f2f;
   }
 `;
 

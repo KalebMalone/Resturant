@@ -118,7 +118,7 @@ const CategoryHeading = styled.h2`
   padding: 12px;
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(71, 63, 63);
 `;
 
 const Menu = () => {

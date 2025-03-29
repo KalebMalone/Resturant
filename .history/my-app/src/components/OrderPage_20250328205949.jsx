@@ -139,7 +139,7 @@ const OrderPage = () => {
     drinks: [],
   });
 
-  const { addToCart, cart } = useCart();  // Destructure cart here
+  const { addToCart } = useCart();  // Get addToCart function from context
 
   useEffect(() => {
     Promise.all([

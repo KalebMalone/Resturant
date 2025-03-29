@@ -80,7 +80,7 @@ const MenuItem = styled.div`
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px rgb(71, 63, 63);
   }
 
   img {
