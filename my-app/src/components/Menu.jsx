@@ -129,7 +129,6 @@ const Menu = () => {
         drinks: [],
     });
 
-    // Fetch data for all categories at once
     useEffect(() => {
         Promise.all([
             fetch('http://localhost:5000/starters').then((response) => response.json()),
@@ -146,17 +145,14 @@ const Menu = () => {
             });
     }, []);
 
-    // Function to render menu items dynamically
     const renderMenuItems = (category) => {
       if (!category || category.length === 0) return <p>No items available</p>;
   
       return category.map((item, index) => {
-          // Check if the item has an image and log its path
-          console.log(item.image); // Check the image path in the console
+          console.log(item.image);
   
           return (
               <MenuItem key={index}>
-                  {/* Check if image exists and render it */}
                   {item.image ? (
                       <img src={item.image} alt={item.name} style={{ width: '50%', height: 'auto', borderRadius: '8px' }} />
                   ) : (

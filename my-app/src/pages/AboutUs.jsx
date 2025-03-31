@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Ensure no dark overlay and set white background explicitly
 const AboutContainer = styled.div`
   display: flex;
   flex-direction: column;

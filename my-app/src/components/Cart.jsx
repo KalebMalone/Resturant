@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCart } from '../context/CartContext';  // Import the custom hook
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const CartContainer = styled.div`
   max-width: 800px;
@@ -19,7 +20,7 @@ const CartItem = styled.div`
 `;
 
 const RemoveButton = styled.button`
-  background-color:rgb(0, 0, 0);
+  background-color: black;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -27,8 +28,24 @@ const RemoveButton = styled.button`
   border-radius: 5px;
 `;
 
+const CheckoutButton = styled.button`
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 20px;
+  &:hover {
+    background-color: black;
+  }
+`;
+
 const Cart = () => {
-    const { cart, removeFromCart } = useCart();  // Get cart and removeFromCart function from context
+    const { cart, removeFromCart } = useCart();
+    const navigate = useNavigate();
 
     return (
         <CartContainer>
@@ -36,12 +53,15 @@ const Cart = () => {
             {cart.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
-                cart.map((item, index) => (
-                    <CartItem key={index}>
-                        <span>{item.name} - ${item.price}</span>
-                        <RemoveButton onClick={() => removeFromCart(index)}>Remove</RemoveButton>
-                    </CartItem>
-                ))
+                <>
+                    {cart.map((item, index) => (
+                        <CartItem key={index}>
+                            <span>{item.name} - ${item.price}</span>
+                            <RemoveButton onClick={() => removeFromCart(index)}>Remove</RemoveButton>
+                        </CartItem>
+                    ))}
+                    <CheckoutButton onClick={() => navigate('/checkout')}>Proceed to Checkout</CheckoutButton>
+                </>
             )}
         </CartContainer>
     );

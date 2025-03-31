@@ -48,10 +48,10 @@ const Image = styled.img`
 `;
 
 function Home() {
-    const navigate = useNavigate(); // Initialize the navigation hook
+    const navigate = useNavigate();
 
     const goToMenu = () => {
-        navigate("/menu"); // Navigate to the menu page when button is clicked
+        navigate("/menu");
     };
 
     return (
