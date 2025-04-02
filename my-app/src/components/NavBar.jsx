@@ -9,7 +9,7 @@ const Header = styled.header`
   left: 0;
   width: 100%;
   background-color: rgb(255, 255, 255);
-  padding: 15px 20px;
+  padding: 25px 20px;
   box-shadow: 0 4px 6px rgb(71, 63, 63);
   z-index: 1000;
   display: flex;
