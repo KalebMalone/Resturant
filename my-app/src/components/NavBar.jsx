@@ -101,7 +101,7 @@ const OrderButton = styled.button`
 const ContactInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 5px;
   font-size: 14px;
   color: rgb(71, 63, 63);
@@ -149,7 +149,7 @@ const NavBar = () => {
       <ContactInfo>
         <ContactItem href="tel:+1234567890">Phone: (123) 456-7890</ContactItem>
         <ContactItem href="mailto:info@savoryseasons.com">Email: Savory Seasons</ContactItem>
-        <ContactItem>Address: 123 Savory St, Food City, FC </ContactItem>
+        <ContactItem>Address: 123 Savory St, Food City </ContactItem>
       </ContactInfo>
 
       {/* Media Query to Adjust Layout for Smaller Screens */}
