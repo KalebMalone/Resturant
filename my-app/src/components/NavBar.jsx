@@ -15,6 +15,8 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 `;
 
 // Title of the Navbar, clickable to navigate to Home
@@ -29,12 +31,14 @@ const Title = styled.h1`
   }
 `;
 
-// Navigation container for the links
+// Navigation container for the links (align links closer to the center)
 const Navigation = styled.nav`
   display: flex;
   gap: 20px;
-  justify-content: center;
+  justify-content: flex-start; /* Align to the left first */
   flex-grow: 1;
+  flex-wrap: wrap;
+  margin-left: 580px; /* Added margin to nudge right */
 `;
 
 // Styling for individual navigation links
@@ -43,6 +47,8 @@ const StyledNavLink = styled(Link)`
   color: rgb(71, 63, 63);
   font-weight: bold;
   font-size: 18px;
+  padding: 5px 15px;
+  display: inline-block;
   &:hover {
     color: rgb(71, 63, 63);
   }
@@ -91,7 +97,30 @@ const OrderButton = styled.button`
   }
 `;
 
-function NavBar() {
+// Styling for Contact Information section
+const ContactInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  font-size: 14px;
+  color: rgb(71, 63, 63);
+  max-width: 250px;
+  width: 100%;
+`;
+
+// Contact Item styling
+const ContactItem = styled.a`
+  color: rgb(71, 63, 63);
+  text-decoration: none;
+  &:hover {
+    color: rgb(50, 50, 50);
+  }
+`;
+
+const mediaQuery = `@media (max-width: 768px)`;
+
+const NavBar = () => {
   const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0); // Example state, replace with real data
 
@@ -115,6 +144,26 @@ function NavBar() {
 
       {/* Order Now Button */}
       <OrderButton onClick={() => navigate("/order")}>Order Now</OrderButton>
+
+      {/* Contact Information */}
+      <ContactInfo>
+        <ContactItem href="tel:+1234567890">Phone: (123) 456-7890</ContactItem>
+        <ContactItem href="mailto:info@savoryseasons.com">Email: Savory Seasons</ContactItem>
+        <ContactItem>Address: 123 Savory St, Food City, FC </ContactItem>
+      </ContactInfo>
+
+      {/* Media Query to Adjust Layout for Smaller Screens */}
+      <style>
+        {`
+          ${mediaQuery} {
+            ${ContactInfo} {
+              align-items: center;
+              text-align: center;
+              max-width: 100%;
+            }
+          }
+        `}
+      </style>
     </Header>
   );
 }

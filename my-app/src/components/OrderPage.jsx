@@ -1,9 +1,7 @@
-// src/components/OrderPage.js
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useCart } from '../context/CartContext';  // Import the custom hook
+import { useCart } from '../context/CartContext';
 
-// Global reset for styles
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -12,7 +10,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: #f5f5f5;
+
+    background-image: url('/images/MenuBack.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -27,12 +30,12 @@ const OrderContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
+  padding: 40px 20px;
   min-height: 100vh;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 `;
 
 const MenuHeading = styled.h1`
@@ -48,32 +51,25 @@ const MenuHeading = styled.h1`
 
 const CategoryHeading = styled.h2`
   font-size: 28px;
-  color: #333;
+  color: white;
   text-align: center;
   margin-top: 30px;
-  background-color: #fff;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* Removed background and box-shadow for no container look */
 `;
 
 const MenuItemsGrid = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   width: 100%;
-  margin: 0 auto;
-  flex-wrap: wrap;
   max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const MenuItemCard = styled.div`
   background-color: white;
   border: 1px solid #ddd;
   padding: 20px;
-  width: 45%;
-  min-height: 200px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   color: #333;
@@ -81,12 +77,19 @@ const MenuItemCard = styled.div`
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
   }
 
   h3 {
@@ -118,7 +121,7 @@ const AddToCartButton = styled.button`
   margin-top: 10px;
 
   &:hover {
-    background-color: rgb(71, 63, 63);
+    background-color: rgb(50, 45, 45);
   }
 `;
 
@@ -132,94 +135,50 @@ const CartSummary = styled.div`
 `;
 
 const OrderPage = () => {
-  const [menuData, setMenuData] = useState({
-    starters: [],
-    mains: [],
-    desserts: [],
-    drinks: [],
-  });
-
-  const { addToCart, cart } = useCart();  // Destructure cart here
+  const [menuData, setMenuData] = useState({ starters: [], mains: [], desserts: [], drinks: [] });
+  const { addToCart, cart } = useCart();
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5000/starters').then((response) => response.json()),
-      fetch('http://localhost:5000/mains').then((response) => response.json()),
-      fetch('http://localhost:5000/desserts').then((response) => response.json()),
-      fetch('http://localhost:5000/drinks').then((response) => response.json())
+      fetch('http://localhost:5000/starters').then((res) => res.json()),
+      fetch('http://localhost:5000/mains').then((res) => res.json()),
+      fetch('http://localhost:5000/desserts').then((res) => res.json()),
+      fetch('http://localhost:5000/drinks').then((res) => res.json()),
     ])
-      .then(([starters, mains, desserts, drinks]) => {
-        setMenuData({ starters, mains, desserts, drinks });
-      })
-      .catch((error) => {
-        console.error('Error loading menu data:', error);
-      });
+      .then(([starters, mains, desserts, drinks]) => setMenuData({ starters, mains, desserts, drinks }))
+      .catch((error) => console.error('Error loading menu data:', error));
   }, []);
 
   const handleAddToCart = (item) => {
-    addToCart(item);  // Use addToCart from context
+    addToCart(item);
     alert(`${item.name} added to cart`);
   };
 
-  const renderMenuItems = (category) => {
-    if (!category || category.length === 0) return <p>No items available</p>;
-
-    return category.map((item, index) => (
+  const renderMenuItems = (category) => (
+    category.length > 0 ? category.map((item, index) => (
       <MenuItemCard key={index}>
-        {/* Image */}
-        {item.image && (
-          <img
-            src={item.image}
-            alt={item.name}
-            style={{
-              width: '50%',
-              height: 'auto',
-              borderRadius: '8px',
-              marginBottom: '10px',
-            }}
-          />
-        )}
+        {item.image && <img src={item.image} alt={item.name} />}
         <h3>{item.name}</h3>
         <p>{item.description}</p>
         <p><strong>${item.price}</strong></p>
-        <AddToCartButton onClick={() => handleAddToCart(item)}>
-          Add to Cart
-        </AddToCartButton>
+        <AddToCartButton onClick={() => handleAddToCart(item)}>Add to Cart</AddToCartButton>
       </MenuItemCard>
-    ));
-  };
+    )) : <p>No items available</p>
+  );
 
   return (
     <>
       <GlobalStyle />
       <OrderContainer>
         <MenuHeading>Order Now</MenuHeading>
-
-        {/* Display Starters */}
         <CategoryHeading>Starters</CategoryHeading>
-        <MenuItemsGrid>
-          {menuData.starters.length > 0 ? renderMenuItems(menuData.starters) : <p>Loading Starters...</p>}
-        </MenuItemsGrid>
-
-        {/* Display Main Courses */}
+        <MenuItemsGrid>{renderMenuItems(menuData.starters)}</MenuItemsGrid>
         <CategoryHeading>Main Courses</CategoryHeading>
-        <MenuItemsGrid>
-          {menuData.mains.length > 0 ? renderMenuItems(menuData.mains) : <p>Loading Mains...</p>}
-        </MenuItemsGrid>
-
-        {/* Display Desserts */}
+        <MenuItemsGrid>{renderMenuItems(menuData.mains)}</MenuItemsGrid>
         <CategoryHeading>Desserts</CategoryHeading>
-        <MenuItemsGrid>
-          {menuData.desserts.length > 0 ? renderMenuItems(menuData.desserts) : <p>Loading Desserts...</p>}
-        </MenuItemsGrid>
-
-        {/* Display Drinks */}
+        <MenuItemsGrid>{renderMenuItems(menuData.desserts)}</MenuItemsGrid>
         <CategoryHeading>Drinks</CategoryHeading>
-        <MenuItemsGrid>
-          {menuData.drinks.length > 0 ? renderMenuItems(menuData.drinks) : <p>Loading Drinks...</p>}
-        </MenuItemsGrid>
-
-        {/* Cart Summary */}
+        <MenuItemsGrid>{renderMenuItems(menuData.drinks)}</MenuItemsGrid>
         <CartSummary>
           <h2>Cart</h2>
           <p>Items in cart: {cart.length}</p>

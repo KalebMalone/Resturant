@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-// Global reset for styles to eliminate unwanted background
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -10,7 +9,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: #f5f5f5;
+    background-image: url('images/MenuBack.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,63 +23,59 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// Global Styles for the page
 const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
-  background-color: #f5f5f5;
+  padding: 40px 20px;
   min-height: 100vh;
-  margin: 0;
   width: 100%;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  box-sizing: border-box;
   max-width: 1200px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 `;
 
-// Heading for the Menu page
 const MenuHeading = styled.h1`
   font-size: 36px;
-  color:rgb(71, 63, 63);
+  color: rgb(71, 63, 63);
   text-align: center;
   margin-bottom: 40px;
-  background-color: white; 
+  background-color: white;
   padding: 15px;
   width: 100%;
   border-radius: 8px;
 `;
 
-// Menu Item style (each item will be placed in a grid)
-const MenuItemsGrid = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  width: 100%;
-  margin: 0 auto; /* This will center the grid */
-  max-width: 1200px; /* Ensure it doesn't get too wide */
-  flex-wrap: wrap;
+const CategoryHeading = styled.h2`
+  font-size: 28px;
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+  /* Removed background and box-shadow for no container look */
 `;
 
-// Menu Item Card style (Make all cards the same size)
-const MenuItem = styled.div`
+const MenuItemsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const MenuItemCard = styled.div`
   background-color: white;
   border: 1px solid #ddd;
   padding: 20px;
-  width: 45%; /* Each card takes up 45% of the width */
-  min-height: 200px; /* Set a minimum height to ensure all cards are the same size */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   color: #333;
-  text-align: center; /* Center the text horizontally */
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribute the content evenly */
-  align-items: center; /* Horizontally center content */
+  align-items: center;
 
   &:hover {
     transform: scale(1.05);
@@ -84,15 +83,16 @@ const MenuItem = styled.div`
   }
 
   img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   h3 {
     font-size: 22px;
-    color:rgb(71, 63, 63);
+    color: rgb(71, 63, 63);
     margin-bottom: 10px;
   }
 
@@ -104,102 +104,51 @@ const MenuItem = styled.div`
 
   strong {
     font-size: 18px;
-    color:rgb(71, 63, 63);
+    color: rgb(71, 63, 63);
   }
 `;
 
-// Category Heading
-const CategoryHeading = styled.h2`
-  font-size: 28px;
-  color: #333;
-  text-align: center;
-  margin-top: 30px;
-  background-color: #fff;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-`;
-
 const Menu = () => {
-    const [menuData, setMenuData] = useState({
-        starters: [],
-        mains: [],
-        desserts: [],
-        drinks: [],
-    });
+  const [menuData, setMenuData] = useState({ starters: [], mains: [], desserts: [], drinks: [] });
 
-    useEffect(() => {
-        Promise.all([
-            fetch('http://localhost:5000/starters').then((response) => response.json()),
-            fetch('http://localhost:5000/mains').then((response) => response.json()),
-            fetch('http://localhost:5000/desserts').then((response) => response.json()),
-            fetch('http://localhost:5000/drinks').then((response) => response.json())
-        ])
-            .then(([starters, mains, desserts, drinks]) => {
-                console.log('Fetched menu data:', { starters, mains, desserts, drinks });
-                setMenuData({ starters, mains, desserts, drinks });
-            })
-            .catch((error) => {
-                console.error('Error loading menu data:', error);
-            });
-    }, []);
+  useEffect(() => {
+    Promise.all([
+      fetch('http://localhost:5000/starters').then((res) => res.json()),
+      fetch('http://localhost:5000/mains').then((res) => res.json()),
+      fetch('http://localhost:5000/desserts').then((res) => res.json()),
+      fetch('http://localhost:5000/drinks').then((res) => res.json()),
+    ])
+      .then(([starters, mains, desserts, drinks]) => setMenuData({ starters, mains, desserts, drinks }))
+      .catch((error) => console.error('Error loading menu data:', error));
+  }, []);
 
-    const renderMenuItems = (category) => {
-      if (!category || category.length === 0) return <p>No items available</p>;
-  
-      return category.map((item, index) => {
-          console.log(item.image);
-  
-          return (
-              <MenuItem key={index}>
-                  {item.image ? (
-                      <img src={item.image} alt={item.name} style={{ width: '50%', height: 'auto', borderRadius: '8px' }} />
-                  ) : (
-                      <p>No image available</p>
-                  )}
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <p><strong>${item.price}</strong></p>
-              </MenuItem>
-          );
-      });
-  };
-  
-  
+  const renderMenuItems = (category) => (
+    category.length > 0 ? category.map((item, index) => (
+      <MenuItemCard key={index}>
+        {item.image && <img src={item.image} alt={item.name} />}
+        <h3>{item.name}</h3>
+        <p>{item.description}</p>
+        <p><strong>${item.price}</strong></p>
+      </MenuItemCard>
+    )) : <p>No items available</p>
+  );
 
-    return (
-        <>
-            <GlobalStyle />
-            <MenuContainer>
-                <MenuHeading>Our Menu</MenuHeading>
-
-                {/* Display Starters */}
-                <CategoryHeading>Starters</CategoryHeading>
-                <MenuItemsGrid>
-                    {menuData.starters.length > 0 ? renderMenuItems(menuData.starters) : <p>Loading Starters...</p>}
-                </MenuItemsGrid>
-
-                {/* Display Main Courses */}
-                <CategoryHeading>Main Courses</CategoryHeading>
-                <MenuItemsGrid>
-                    {menuData.mains.length > 0 ? renderMenuItems(menuData.mains) : <p>Loading Mains...</p>}
-                </MenuItemsGrid>
-
-                {/* Display Desserts */}
-                <CategoryHeading>Desserts</CategoryHeading>
-                <MenuItemsGrid>
-                    {menuData.desserts.length > 0 ? renderMenuItems(menuData.desserts) : <p>Loading Desserts...</p>}
-                </MenuItemsGrid>
-
-                {/* Display Drinks */}
-                <CategoryHeading>Drinks</CategoryHeading>
-                <MenuItemsGrid>
-                    {menuData.drinks.length > 0 ? renderMenuItems(menuData.drinks) : <p>Loading Drinks...</p>}
-                </MenuItemsGrid>
-            </MenuContainer>
-        </>
-    );
+  return (
+    <>
+      <GlobalStyle />
+      <MenuContainer>
+        <MenuHeading>Our Menu</MenuHeading>
+        <CategoryHeading>Starters</CategoryHeading>
+        <MenuItemsGrid>{renderMenuItems(menuData.starters)}</MenuItemsGrid>
+        <CategoryHeading>Main Courses</CategoryHeading>
+        <MenuItemsGrid>{renderMenuItems(menuData.mains)}</MenuItemsGrid>
+        <CategoryHeading>Desserts</CategoryHeading>
+        <MenuItemsGrid>{renderMenuItems(menuData.desserts)}</MenuItemsGrid>
+        <CategoryHeading>Drinks</CategoryHeading>
+        <MenuItemsGrid>{renderMenuItems(menuData.drinks)}</MenuItemsGrid>
+      </MenuContainer>
+    </>
+  );
 };
 
 export default Menu;
