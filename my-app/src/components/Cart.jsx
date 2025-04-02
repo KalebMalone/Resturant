@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext';
 const CartContainer = styled.div`
   max-width: 800px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 80px;
   background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
