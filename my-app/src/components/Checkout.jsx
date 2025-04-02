@@ -38,7 +38,7 @@ const SubmitButton = styled.button`
 `;
 
 const Checkout = () => {
-  const { cart } = useCart(); // Get cart items
+  const { cart, clearCart } = useCart(); // Get cart items and clearCart function
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
@@ -88,6 +88,7 @@ const Checkout = () => {
           console.log("Receipt sent:", result.text);
           alert("Email receipt sent!");
           resetForm();
+          clearCart(); // Clear the cart only after successful payment
         },
         (error) => {
           console.log("Error sending receipt:", error.text);
